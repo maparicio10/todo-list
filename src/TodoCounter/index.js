@@ -1,19 +1,13 @@
+import React from 'react';
 import './TodoCounter.css'; // Importamos el archivo de estilos
+import { TodoContext } from '../TodoContext';
 
 function TodoCounter({ total, completed }) {
-  // Recibimos las propiedades total y completed
-//   const  estilos = {
-//     // background: 'linear-gradient(90deg, #007bff, #6610f2)',
-//     color: completed > total / 2 ? 'red' : 'green',
-//     fontWeight: 'bold',
-//     textAlign: 'center',
-//     padding: '48px',
-//   };
+  const { totalTodos, completedTodos } = React.useContext(TodoContext);
 
   return (
-    // <h1 style={estilos}> 
     <h1 className='TodoCounter'> 
-      Has completado {completed} de {total} TODOs
+      Has completado {completedTodos} de {totalTodos} TODOs
     </h1>
   );
 }

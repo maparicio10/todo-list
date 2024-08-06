@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { useLocalStorage } from './useLocalStorage';
 import { AppUI } from './AppUI';
+import { TodoProvider } from '../TodoContext';
 // const defaultTodos = [
 //   { text: 'Cortar cebolla', completed: true },
 //   { text: 'Tomar el curso de intro a React', completed: false },
@@ -13,62 +13,11 @@ import { AppUI } from './AppUI';
 // localStorage.setItem('TODOS_V1', JSON.stringify(defaultTodos));
 // localStorage.removeItem('TODOS_V1');
 
-
-
-
-
 function App() {
-  // const [todos, saveTodos] = useLocalStorage('TODOS_V1', []);
-  const {
-    item: todos,
-    saveItem: saveTodos,
-    loading,
-    error
-  } = useLocalStorage('TODOS_V1', []);
-  const [searchValue, setsearchValue] = React.useState('');
-  // const [todos, setTodos] = React.useState(defaultTodos);
-  // const [todos, setTodos] = React.useState(parsedTodos);
-
-  const completedTodos = todos.filter(todo => !!todo.completed).length;
-  const totalTodos = todos.length;
-  const filteredTodos = todos.filter(todo => todo.text.toLowerCase().includes(searchValue.toLowerCase()));
-
-  // console.log('Execute 1');
-  // // console.log('Execute 2');
-  // React.useEffect(() => {
-  //   console.log('Execute 2');
-  // }, [todos]);
-  // console.log('Execute 3');
-
-
-  const completeTodo = (text) => {
-    const todoIndex = todos.findIndex(todo => todo.text === text);
-    const newTodos = [...todos];
-    newTodos[todoIndex].completed = true;
-    // setTodos(newTodos);
-    saveTodos(newTodos);
-  };
-
-  const deleteTodo = (text) => {
-    const todoIndex = todos.findIndex(todo => todo.text === text);
-    const newTodos = [...todos];
-    newTodos.splice(todoIndex, 1);
-    // setTodos(newTodos);
-    saveTodos(newTodos);
-  };
-
   return (
-    <AppUI
-      loading={loading}
-      error={error}
-      totalTodos={totalTodos}
-      completedTodos={completedTodos}
-      searchValue={searchValue}
-      setsearchValue={setsearchValue}
-      filteredTodos={filteredTodos}
-      completeTodo={completeTodo}
-      deleteTodo={deleteTodo}
-    />
+    <TodoProvider>
+      <AppUI />
+    </TodoProvider>
   )
 }
 
